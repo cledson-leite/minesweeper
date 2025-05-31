@@ -60,7 +60,7 @@ const styles = StyleSheet.create({
   },
   base1Bigger: {
     position: 'absolute',
-    width: 2,
+    width: 12,
     height: 4,
     backgroundColor: '#222',
     marginLeft: 12,

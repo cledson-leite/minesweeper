@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet } from 'react-native'
+import { View, Text, StyleSheet, TouchableWithoutFeedback } from 'react-native'
 import {params} from '../constant/params'
 import { Mine } from './Mine'
 import { Flag } from './Flag'
@@ -10,7 +10,7 @@ export const Field = props => {
   if(exploded) styleField.push(styles.exploded)
   if(flagged) styleField.push(styles.flagged, styles.regular)
   if(styleField.length === 1) styleField.push(styles.regular)
-
+          
     let color = null
     if(nearMines > 0){
       if(nearMines === 1) color = "#2A28D7"
@@ -19,17 +19,19 @@ export const Field = props => {
       if(nearMines >= 6 ) color = "#F221A9"
     }
   return (
-    <View style={styleField}>
-      {
-          !mined && opened && nearMines > 0 
-          ?  <Text style ={[styles.label, {color: color}]}>
-            {nearMines}
-          </Text>
-          : null
-        }
-        {mined && opened ? <Mine /> : null}
-        {flagged && !opened ? <Flag /> : null}
-    </View>
+    <TouchableWithoutFeedback onPress={props.onOpen} onLongPress={props.onSelect}>
+      <View style={styleField}>
+        {
+            !mined && opened && nearMines > 0 
+            ?  <Text style ={[styles.label, {color: color}]}>
+              {nearMines}
+            </Text>
+            : null
+          }
+          {mined && opened ? <Mine /> : null}
+          {flagged && !opened ? <Flag /> : null}
+      </View>
+    </TouchableWithoutFeedback>
   )
 }
 
